@@ -162,6 +162,17 @@ class HistogramCuts {
     }
     return vals[bin_idx - 1];
   }
+
+  void SetDevice(DeviceOrd d) {
+    this->cut_ptrs_.SetDevice(d);
+    this->cut_ptrs_.ConstDevicePointer();
+
+    this->cut_values_.SetDevice(d);
+    this->cut_values_.ConstDevicePointer();
+
+    this->min_vals_.SetDevice(d);
+    this->min_vals_.ConstDevicePointer();
+  }
 };
 
 /**
@@ -624,7 +635,7 @@ class ParallelGHistBuilder {
 
 // construct a histogram via histogram aggregation
 template <bool any_missing>
-void BuildHist(Span<GradientPair const> gpair, const RowSetCollection::Elem row_indices,
+void BuildHist(Span<GradientPair const> gpair, Span<bst_idx_t const> row_indices,
                const GHistIndexMatrix& gmat, GHistRow hist, bool force_read_by_column = false);
 }  // namespace common
 }  // namespace xgboost
