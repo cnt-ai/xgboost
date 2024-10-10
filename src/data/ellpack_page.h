@@ -17,6 +17,8 @@ class EllpackPageImpl;
  *
  * This class uses the PImpl idiom (https://en.cppreference.com/w/cpp/language/pimpl) to avoid
  * including CUDA-specific implementation details in the header.
+ *
+ * See @ref EllpackPageImpl .
  */
 class EllpackPage {
  public:
@@ -50,6 +52,7 @@ class EllpackPage {
   EllpackPageImpl* Impl() { return impl_.get(); }
 
   [[nodiscard]] common::HistogramCuts const& Cuts() const;
+  [[nodiscard]] bst_idx_t BaseRowId() const;
 
  private:
   std::unique_ptr<EllpackPageImpl> impl_;
